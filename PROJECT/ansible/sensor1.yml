@@ -1,0 +1,55 @@
+- name: Install Mosquitto MQTT Broker
+  hosts: sensor1-client-temperatura-project
+  become: true
+  tasks:
+    - name: Update package index
+      apt:
+        update_cache: yes
+        cache_valid_time: 60
+
+    - name: Add universe repository
+      apt_repository:
+        repo: "deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} universe"
+        state: present
+        update_cache: yes
+
+    - name: Install Python 3 pip
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install paho-mqtt module
+      pip:
+        name: paho-mqtt
+        executable: /usr/bin/pip3
+        state: present
+
+    - name: Install mysql-connector-python module
+      pip:
+        name: mysql-connector-python
+        executable: /usr/bin/pip3
+        state: present
+
+    - name: Update package index
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install mysql-client-core-8.0
+      apt:
+        name: mysql-client-core-8.0
+        state: present
+
+
+    - name: make var/data dir
+      file:
+        path: /var/data/
+        state: directory
+
+    - name: Copiar python sensor1
+      copy:
+        src: "/home/vm2/Documentos/PROJECT/sensor/sensor1.py"
+        dest: "/var/data"
+
+    - name: Run sensor1
+      command: python3 /var/data/sensor1.py

@@ -1,0 +1,9 @@
+apt update && apt upgrade -y
+sudo apt-get install mosquitto mosquitto-clients
+apt install python3-pip
+pip install paho-mqtt
+nano temperature_simulator.py
+python3 temperature_simulator.py
+mosquitto_sub -t temperature
+
+ansible-playbook -i hosts mosquitto.yml

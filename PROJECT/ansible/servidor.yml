@@ -1,0 +1,25 @@
+---
+- name: Install Mosquitto and Mosquitto client
+  hosts: server-mosquitto-project
+  become: true
+  tasks:
+    - name: Update package index
+      apt:
+          update_cache: yes
+          cache_valid_time: 3600
+
+    - name: Install Mosquitto package
+      apt:
+        name: mosquitto
+        state: present
+
+    - name: Install Mosquitto client package
+      apt:
+        name: mosquitto-clients
+        state: present
+
+    - name: Start and enable Mosquitto service
+      systemd:
+        name: mosquitto
+        state: started
+        enabled: true

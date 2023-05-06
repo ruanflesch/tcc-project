@@ -1,0 +1,20 @@
+- - - R O T E I R O - - - 
+1º Rodar o Terraform
+2º Alterar os IP's (hosts & python/db)
+3º Rodar os playbook's do ansible (Grafana/Prometheus, Node_Exporter, Servidor e Sensor)
+4º Ajustar o prometheus.yml dentro da ec2 grafana
+
+5º Configurar o banco de dados:
+sudo apt-get install mysql-client -y
+mysql -h db-temperatura.c6gusyh3rn8x.us-east-1.rds.amazonaws.com -P 3306 -u myuser -p
+CREATE DATABASE temperatura;
+use temperatura;
+CREATE TABLE temperatura_servidor (
+  codigo INT NOT NULL AUTO_INCREMENT,
+  temperatura DECIMAL(5,2),
+  dispositivo VARCHAR(255),
+  descricao VARCHAR(255),
+  date_timestamp DATETIME,
+  PRIMARY KEY (codigo)
+);
+
