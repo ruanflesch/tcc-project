@@ -25,7 +25,7 @@ resource "aws_instance" "server-mosquitto-project" {
   }
 }
 
-resource "aws_instance" "sensor1-client-temperatura-project" {
+resource "aws_instance" "sensor-client-temperatura-project" {
   ami                    = var.AMIS[var.REGION]
   instance_type          = "t2.micro"
   subnet_id              = aws_subnet.tcc-pub-1.id
@@ -33,7 +33,7 @@ resource "aws_instance" "sensor1-client-temperatura-project" {
   vpc_security_group_ids = [aws_security_group.sensor-client-temperatura-project_sg.id]
 
   tags = {
-    Name = "sensor1-client-temperatura-project"
+    Name = "sensor-client-temperatura-project"
   }
 }
 
@@ -49,6 +49,18 @@ resource "aws_instance" "grafana-project" {
   }
 }
 
+resource "aws_instance" "ansible-project" {
+  ami                    = var.AMIS[var.REGION]
+  instance_type          = "t2.micro"
+  subnet_id              = aws_subnet.tcc-pub-1.id
+  key_name               = aws_key_pair.key_pair.key_name
+  vpc_security_group_ids = [aws_security_group.ansible-project_sg.id]
+
+  tags = {
+    Name = "ansible-project"
+  }
+}
+
 output "Grafana-Project-Public-IP" {
   value = aws_instance.grafana-project.public_ip
 }
@@ -56,6 +68,10 @@ output "Server-mosquitto-project-Public-IP" {
   value = aws_instance.server-mosquitto-project.public_ip
 }
 
-output "Sensor1-client-temperatura-project-Public-IP" {
-  value = aws_instance.sensor1-client-temperatura-project.public_ip
+output "Sensor-client-temperatura-project-Public-IP" {
+  value = aws_instance.sensor-client-temperatura-project.public_ip
+}
+
+output "Ansible-project-Public-IP" {
+  value = aws_instance.ansible-project.public_ip
 }

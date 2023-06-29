@@ -1,8 +1,8 @@
 [ec2-grafana-project]
-23.22.149.179
+3.88.104.157
 
 [server-mosquitto-project]
-3.93.163.44
+18.209.61.87
 
-[sensor1-client-temperatura-project]
-18.215.182.209
+[sensor-client-temperatura-project]
+52.55.83.82
